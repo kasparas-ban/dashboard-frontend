@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 import ChatList from "./Pages/ChatList";
+import Globe from "./Pages/Globe";
 import NotFound from "./Pages/NotFound";
 import Root from "./Pages/Root";
 
@@ -14,12 +15,20 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
+        path: "world",
+        element: <Globe />,
+      },
+      {
         path: "chat-list",
         element: <ChatList />,
       },
       {
-        path: "account",
-        element: <>Here goes user data</>,
+        path: "contacts",
+        element: <>A list of contacts</>,
+      },
+      {
+        path: "settings",
+        element: <>Some settings go here</>,
       },
     ],
   },
