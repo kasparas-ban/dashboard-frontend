@@ -1,0 +1,45 @@
+@import '../../variables';
+
+nav {
+  position: absolute;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 100vh;
+  width: 4rem;
+  z-index: 2;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  &:first-child {
+    margin-top: 3rem;
+  }
+}
+
+.nav-icon {
+  clip-path: circle(70%);
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  fill: $slate-600;
+
+  &:hover {
+    background-color: $slate-200;
+    outline: $slate-200 solid 8px;
+  }
+}
+
+.selected-icon {
+  background-color: $blue-300;
+  outline: $blue-300 solid 8px;
+  fill: white;
+
+  &:hover {
+    background-color: $blue-300;
+    outline: $blue-300 solid 8px;
+    fill: white;
+  }
+}

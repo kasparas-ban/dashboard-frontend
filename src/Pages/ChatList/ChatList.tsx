@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './chatList.scss';
 
 interface IMessage {
   body: string,
@@ -85,19 +86,19 @@ function ChatList() {
   };
 
   return (
-    <>
-      <div className='h-full w-96 flex flex-col py-10 border-r'>
-        <div className="text-3xl mb-6 pl-6 font-semibold">Messages</div>
+    <div className="chats-section">
+      <div className='chat-list-section'>
+        <div className='chat-section-message'>Messages</div>
         {Object.values(chatList).map(chat => {
           const members = chat.members;
           const lastMessage = chat.messages[chat.messages.length - 1];
 
           return (
-            <div className={`grid grid-cols-7 pl-6 py-2 hover:bg-slate-300 hover:cursor-pointer ${selectedChat?.chatId === chat.chatId ? 'bg-slate-300' : ''}`} key={chat.chatId} onClick={() => handleSelect(chat.chatId)}>
-              <div className="bg-blue-300 w-10 h-10 rounded-full my-auto"></div>
-              <div className="col-span-6">
-                <div className="flex justify-between mr-6">
-                  <div className="font-semibold">{members[0]}</div>
+            <div className={`chat-list ${selectedChat?.chatId === chat.chatId ? 'selected' : ''}`} key={chat.chatId} onClick={() => handleSelect(chat.chatId)}>
+              <div className='account-icon'></div>
+              <div className="chat-selection">
+                <div className="chat-info">
+                  <div className="chat-members">{members[0]}</div>
                   <div className="">{`${lastMessage.time.getHours()}:${lastMessage.time.getMinutes()}`}</div>
                 </div>
                 <div className="">{lastMessage.body}</div>
@@ -107,13 +108,13 @@ function ChatList() {
         })}
       </div>
       <ChatSection chat={selectedChat} />
-    </>
+    </div>
   );
 }
 
 function ChatSection(props: { chat: IChat | null }) {
   return (
-    <div className="grow flex flex-col">
+    <div className="chat-messages">
       {
         props.chat ? (
           <>
@@ -129,22 +130,22 @@ function ChatSection(props: { chat: IChat | null }) {
 
 function ChatHeader(props: { chatMembers: string[] }) {
   return (
-    <div className="flex border-b py-4 px-4">
-      <div className="w-14 h-14 bg-blue-300 rounded-full mr-4"></div>
-      <div className="font-bold my-auto text-xl">{props.chatMembers[0]}</div>
+    <div className='chat-header'>
+      <div className='header-account-icon'></div>
+      <div className='header-members'>{props.chatMembers[0]}</div>
     </div>
   );
 }
 
 function ChatBody(props: { chat: IChat }) {
   return (
-    <div className="p-4 grow bg-slate-100">
+    <div className='chat-body'>
       {props.chat.messages.map(mess => (
-        <div className={`flex ${mess.author === 'You' ? 'justify-end' : ''}`}>
-          {mess.author !== 'You' ? <div className="w-10 h-10 bg-slate-300 rounded-full mr-2"></div> : null}
+        <div className={`message ${mess.author === 'You' ? 'message-self' : ''}`}>
+          {mess.author !== 'You' ? <div className='account-icon message-account-icon'></div> : null}
           <div>
-            <div className="bg-slate-300 rounded-lg p-2">{mess.body}</div>
-            <div className={`text-sm ${mess.author === 'You' ? 'text-end' : ''}`}>{mess.time.toLocaleDateString() + ' ' + mess.time.toLocaleTimeString()}</div>
+            <div className="message-body">{mess.body}</div>
+            <div className={`message-time ${mess.author === 'You' ? 'message-time-r' : ''}`}>{mess.time.toLocaleDateString() + ' ' + mess.time.toLocaleTimeString()}</div>
           </div>
         </div>
       ))}
@@ -154,9 +155,9 @@ function ChatBody(props: { chat: IChat }) {
 
 function ChatInputs() {
   return (
-    <div className="flex h-12 border-t">
-      <input className="grow h-8 mx-2 my-auto placeholder:italic placeholder:text-slate-400 pl-2 focus:outline-none" type="text" placeholder="Enter message" title="Enter text message here" />
-      <button className="h-8 px-4 bg-blue-300 rounded-lg mr-2 my-auto hover:bg-blue-400">Send</button>
+    <div className="message-input">
+      <input type="text" placeholder="Enter message" title="Enter text message here" />
+      <button className='send-button'>Send</button>
     </div>
   );
 }

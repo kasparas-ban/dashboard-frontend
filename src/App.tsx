@@ -1,45 +1,28 @@
 import {
-  createBrowserRouter,
-  RouterProvider
+  Route,
+  Routes,
+  BrowserRouter
 } from "react-router-dom";
 import './App.css';
-import ChatList from "./Pages/ChatList";
-import Globe from "./Pages/Globe";
-import NotFound from "./Pages/NotFound";
-import Root from "./Pages/Root";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <NotFound />,
-    children: [
-      {
-        path: "world",
-        element: <Globe />,
-      },
-      {
-        path: "chat-list",
-        element: <ChatList />,
-      },
-      {
-        path: "contacts",
-        element: <>A list of contacts</>,
-      },
-      {
-        path: "settings",
-        element: <>Some settings go here</>,
-      },
-    ],
-  },
-
-]);
+import GlobeWindow from './Components/Globe/GlobeWindow';
+import Navbar from './Components/Navbar/Navbar';
+import ChatList from "./Pages/ChatList/ChatList";
+import Contacts from "./Pages/Contacts/Contacts";
+import Settings from "./Pages/Settings/Settings";
+import ErrorPage from "./Pages/NotFound";
 
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<GlobeWindow />} />
+        <Route path="/chat-list" element={<ChatList />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="*" element={<>Page not found</>} />
+      </Routes>
+      <Navbar />
+    </BrowserRouter>
   );
 }
 

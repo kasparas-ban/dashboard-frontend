@@ -1,0 +1,170 @@
+@import '../../variables';
+
+.chats-section {
+  position: absolute;
+  margin-left: 4rem;
+  height: 100%;
+  width: calc(100% - 4rem);
+  display: flex;
+  margin-right: 4rem;
+}
+
+// === Chat list section ===
+
+.chat-list-section {
+  height: 100%;
+  width: 24rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 0;
+  border-width: 0 1px 0 0;
+  border-color: $slate-200;
+  border-style: solid;
+}
+
+.chat-section-message {
+  font-size: 1.875rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  font-weight: 600;
+}
+
+.chat-list {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: 0.5rem 0 0.5rem 1.5rem;
+
+  &:hover {
+    background-color: $slate-300;
+    cursor: pointer;
+  }
+}
+
+.selected {
+  background-color: $slate-300;
+}
+
+.account-icon {
+  background-color: $blue-300;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+  margin: auto 0;
+}
+
+.chat-selection {
+  grid-column: span 6 / span 6;
+
+  .chat-info {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 2.5rem;
+
+    .chat-members {
+      font-weight: 600;
+    }
+  }
+}
+
+// === Chat messages section ===
+
+.chat-messages {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  display: flex;
+  padding: 1rem;
+  border-width: 0 0 1px 0;
+  border-color: $slate-200;
+  border-style: solid;
+
+  .header-account-icon {
+    height: 3.5rem;
+    width: 3.5rem;
+    background-color: $blue-300;
+    border-radius: 100%;
+    margin-right: 1rem;
+  }
+
+  .header-members {
+    font-weight: bold;
+    margin: auto 0;
+    font-size: 1.25rem;
+  }
+}
+
+.chat-body {
+  padding: 1rem;
+  flex-grow: 1;
+  background-color: $slate-100;
+}
+
+.message {
+  display: flex;
+
+  .message-account-icon {
+    margin-right: 0.5rem;
+  }
+
+  .message-body {
+    background-color: $slate-300;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .message-time {
+    font-size: 0.875rem;
+  }
+
+  .message-time-r {
+    text-align: end;
+  }
+}
+
+.message-self {
+  justify-content: flex-end;
+}
+
+// === Message input ===
+
+.message-input {
+  display: flex;
+  height: 3rem;
+  border-width: 0 1px 0 0;
+  border-color: $slate-200;
+  border-style: solid;
+
+  input {
+    flex-grow: 1;
+    height: 2rem;
+    margin: auto 0.5rem;
+    padding-left: 0.5rem;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  ::placeholder {
+    font-style: italic;
+    color: $slate-300;
+  }
+
+  .send-button {
+    height: 2rem;
+    padding: 0 1rem;
+    margin: auto 0.5rem auto 0;
+    background-color: $blue-300;
+    border-radius: 0.5rem;
+    border-width: 0;
+
+    &:hover {
+      background-color: $blue-400;
+      cursor: pointer;
+    }
+  }
+}
