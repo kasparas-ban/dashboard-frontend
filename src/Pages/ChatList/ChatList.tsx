@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ReactComponent as SendIcon } from '../../Assets/send_icon.svg';
 import './chatList.scss';
 
 interface IMessage {
@@ -99,9 +100,9 @@ function ChatList() {
               <div className="chat-selection">
                 <div className="chat-info">
                   <div className="chat-members">{members[0]}</div>
-                  <div className="">{`${lastMessage.time.getHours()}:${lastMessage.time.getMinutes()}`}</div>
+                  <div className="chat-time">{`${lastMessage.time.getHours()}:${lastMessage.time.getMinutes()}`}</div>
                 </div>
-                <div className="">{lastMessage.body}</div>
+                <div className="last-message">{lastMessage.body}</div>
               </div>
             </div>
           )
@@ -120,7 +121,7 @@ function ChatSection(props: { chat: IChat | null }) {
           <>
             <ChatHeader chatMembers={props.chat?.members} />
             <ChatBody chat={props.chat} />
-            <ChatInputs />
+            {/* <ChatInputs /> */}
           </>
         ) : null
       }
@@ -141,14 +142,23 @@ function ChatBody(props: { chat: IChat }) {
   return (
     <div className='chat-body'>
       {props.chat.messages.map(mess => (
-        <div className={`message ${mess.author === 'You' ? 'message-self' : ''}`}>
-          {mess.author !== 'You' ? <div className='account-icon message-account-icon'></div> : null}
-          <div>
-            <div className="message-body">{mess.body}</div>
-            <div className={`message-time ${mess.author === 'You' ? 'message-time-r' : ''}`}>{mess.time.toLocaleDateString() + ' ' + mess.time.toLocaleTimeString()}</div>
-          </div>
-        </div>
+        <Message message={mess} />
       ))}
+      <ChatInputs />
+    </div>
+  );
+}
+
+function Message(props: { message: IMessage }) {
+  const m = props.message;
+  const mTime = m.time.toLocaleTimeString();
+  return (
+    <div className={`message ${m.author === 'You' ? 'self' : ''}`}>
+      {m.author !== 'You' ? <div className='account-icon message-account-icon'></div> : null}
+      <div>
+        <div className="message-body">{m.body}</div>
+        <div className={`message-time ${m.author === 'You' ? 'message-time-r' : ''}`}>{mTime.substring(0, mTime.length - 3)}</div>
+      </div>
     </div>
   );
 }
@@ -156,8 +166,8 @@ function ChatBody(props: { chat: IChat }) {
 function ChatInputs() {
   return (
     <div className="message-input">
-      <input type="text" placeholder="Enter message" title="Enter text message here" />
-      <button className='send-button'>Send</button>
+      <input type="text" placeholder="Enter a message" title="Enter text message here" />
+      <SendIcon className='send-button' />
     </div>
   );
 }

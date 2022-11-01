@@ -35,13 +35,13 @@
   padding: 0.5rem 0 0.5rem 1.5rem;
 
   &:hover {
-    background-color: $slate-300;
+    background-color: $slate-200;
     cursor: pointer;
   }
 }
 
 .selected {
-  background-color: $slate-300;
+  background-color: $slate-200;
 }
 
 .account-icon {
@@ -63,6 +63,11 @@
     .chat-members {
       font-weight: 600;
     }
+  }
+
+  .last-message {
+    @include text-sm;
+    color: $slate-700;
   }
 }
 
@@ -97,9 +102,11 @@
 }
 
 .chat-body {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   flex-grow: 1;
   background-color: $slate-100;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
@@ -110,13 +117,13 @@
   }
 
   .message-body {
-    background-color: $slate-300;
-    border-radius: 0.5rem;
+    background-color: $slate-200;
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
     padding: 0.5rem;
   }
 
   .message-time {
-    font-size: 0.875rem;
+    @include text-xs;
   }
 
   .message-time-r {
@@ -124,25 +131,30 @@
   }
 }
 
-.message-self {
+.self {
   justify-content: flex-end;
+
+  .message-body {
+    background-color: $blue-400;
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
+    color: white;
+  }
 }
 
 // === Message input ===
 
 .message-input {
   display: flex;
-  height: 3rem;
-  border-width: 0 1px 0 0;
-  border-color: $slate-200;
-  border-style: solid;
+  height: 4rem;
+  margin-top: auto;
 
   input {
     flex-grow: 1;
     height: 2rem;
     margin: auto 0.5rem;
-    padding-left: 0.5rem;
+    padding: 0.1rem 1rem;
     border: none;
+    border-radius: 8px;
 
     &:focus {
       outline: none;
@@ -151,19 +163,16 @@
 
   ::placeholder {
     font-style: italic;
-    color: $slate-300;
+    color: $slate-500;
   }
 
   .send-button {
-    height: 2rem;
-    padding: 0 1rem;
-    margin: auto 0.5rem auto 0;
-    background-color: $blue-300;
-    border-radius: 0.5rem;
-    border-width: 0;
+    height: 1.6rem;
+    margin: auto 0.5rem auto 0.5rem;
+    fill: $slate-600;
 
     &:hover {
-      background-color: $blue-400;
+      fill: $blue-400;
       cursor: pointer;
     }
   }
