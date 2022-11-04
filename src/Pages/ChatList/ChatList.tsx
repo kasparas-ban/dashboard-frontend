@@ -121,7 +121,6 @@ function ChatSection(props: { chat: IChat | null }) {
           <>
             <ChatHeader chatMembers={props.chat?.members} />
             <ChatBody chat={props.chat} />
-            {/* <ChatInputs /> */}
           </>
         ) : null
       }

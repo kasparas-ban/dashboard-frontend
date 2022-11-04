@@ -9,6 +9,24 @@ nav {
   z-index: 2;
 }
 
+.profile-icon {
+  display: flex;
+  margin: 1.8rem auto 1.8rem auto;
+  background-color: $blue-300;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.nav-separator {
+  border: 1px solid $slate-200;
+  margin: 0 0.5rem 2rem 0.5rem;
+}
+
 .nav-link {
   display: flex;
   justify-content: center;

@@ -18,6 +18,8 @@ function Navbar() {
 
   return (
     <nav>
+      <div className='profile-icon'></div>
+      <hr className='nav-separator' />
       <div className='nav-link'>
         <Link to={`/`}>
           <EarthIcon

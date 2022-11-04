@@ -10,10 +10,12 @@ import ChatList from "./Pages/ChatList/ChatList";
 import Contacts from "./Pages/Contacts/Contacts";
 import Settings from "./Pages/Settings/Settings";
 import ErrorPage from "./Pages/NotFound";
+import NewNavbar from "./Components/NewNavbar/NewNavbar";
 
 function App() {
   return (
     <BrowserRouter>
+      <NewNavbar />
       <Routes>
         <Route path="/" element={<GlobeWindow />} />
         <Route path="/chat-list" element={<ChatList />} />
@@ -21,7 +23,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<>Page not found</>} />
       </Routes>
-      <Navbar />
+      {/* <Navbar /> */}
     </BrowserRouter>
   );
 }
