@@ -1,63 +1,169 @@
-@import '../../variables';
+@use '../../variables' as var;
 
 nav {
   position: absolute;
+  z-index: 1;
+  width: 1200px;
+  height: 55px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  height: 100vh;
-  width: 4rem;
-  z-index: 2;
-}
+  border-radius: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  border: 1px solid #F6F6F6;
 
-.profile-icon {
+  left: 50%;
+  top: 1rem;
+  transform: translate(-50%, 0);
+
   display: flex;
-  margin: 1.8rem auto 1.8rem auto;
-  background-color: $blue-300;
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
+  align-items: center;
+  padding: 0 .5rem;
 
-  &:hover {
-    cursor: pointer;
-  }
+  justify-content: space-between;
 }
 
-.nav-separator {
-  border: 1px solid $slate-200;
-  margin: 0 0.5rem 2rem 0.5rem;
+.nav-center {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-right: 6rem;
+}
+
+.nav-left {
+  display: flex;
 }
 
 .nav-link {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  align-items: center;
+  height: 80%;
+  margin: .2rem;
+  border-radius: 5px;
+  padding: 0 1rem;
 
-  &:first-child {
-    margin-top: 3rem;
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: var.$slate-200;
+    border-radius: 10px;
   }
 }
 
-.nav-icon {
-  clip-path: circle(70%);
-  width: 2rem;
-  height: 2rem;
-  margin: 0 auto;
-  fill: $slate-600;
-
-  &:hover {
-    background-color: $slate-200;
-    outline: $slate-200 solid 8px;
+.smaller {
+  svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
-.selected-icon {
-  background-color: $blue-300;
-  outline: $blue-300 solid 8px;
-  fill: white;
+.nav-earth {
+  svg {
+    width: 35px;
+    height: 35px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 1), -1px 1px 1px 1px rgba(0, 0, 0, 1), -1px -1px 1px 1px rgba(0, 0, 0, 1), 1px -1px 1px 1px rgba(0, 0, 0, 1);
+    border-radius: 100%;
+    
+    path:nth-of-type(1) {
+      fill: white !important;
+    }
+
+    path:nth-of-type(2) {
+      fill: black !important; 
+    }
+  }
 
   &:hover {
-    background-color: $blue-300;
-    outline: $blue-300 solid 8px;
-    fill: white;
+    background-color: var.$slate-200 !important;
+
+    svg > path:nth-of-type(1) {
+      fill: var.$slate-200 !important;
+    }
+  }
+}
+
+.nav-earth-selected {
+  svg {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.nav-selected {
+  fill: var.$logo-color;
+
+  &:hover {
+    background-color: white;
+  }
+}
+
+.nav-profile {
+  padding-left: .1rem;
+
+  &:hover {
+    background-color: white;
+    cursor: default;
+  }
+}
+
+.profile-icon {
+  height: 48px;
+  width: 48px;
+  border-radius: 100%;
+  display: flex;
+
+  border: 3px solid var.$slate-100;
+  box-sizing: border-box;
+
+  &:hover {
+    cursor: pointer;
+    border: none;
+  }
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-icon {
+  color: var.$logo-color;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0 0 0.3rem 1rem;
+  margin-right: 0.6rem;
+}
+
+// === Search input ===
+
+.nav-search {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem;
+  border-radius: 20px;
+  margin: 4px 0;
+  background-color: var.$slate-200;
+
+  .search-icon {
+    fill: var.$slate-500;
+    width: 16px;
+    height: 16px;
+    margin: 0 0.3rem;
+  }
+
+  input {
+    border: none;
+    font-size: 1rem;
+    background-color: var.$slate-200;
+    color: var.$slate-800;
+    height: 100%;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
