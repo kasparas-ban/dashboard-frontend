@@ -7,6 +7,8 @@ import { ReactComponent as FeedIcon } from '../../Assets/feed_icon.svg';
 import EarthIcon from '../../Assets/earth_icon';
 import profile from '../../Assets/profile_example.jpg';
 import './navbar.scss';
+import { useContext } from 'react';
+import { AppContext } from '../../AppContext';
 
 function SearchBar() {
   return (
@@ -18,6 +20,8 @@ function SearchBar() {
 }
 
 function Navbar() {
+  const { overlays, setOverlays } = useContext(AppContext);
+
   return (
     <nav>
       <div className='nav-left'>
@@ -34,24 +38,19 @@ function Navbar() {
         >
           <FeedIcon className='nav-icon' />
         </NavLink>
-        <NavLink
-          end
-          to="chat-list"
-          className={({ isActive }) =>
-            isActive ? 'nav-link nav-selected' : 'nav-link'
-          }
+        <div
+          className={overlays.contacts ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={() => setOverlays(prev => ({ ...prev, contacts: !prev.contacts }))}
         >
           <ChatIcon className='nav-icon' />
-        </NavLink>
-        <NavLink
-          end
-          to="/"
-          className={({ isActive }) =>
-            isActive ? 'nav-link nav-earth-selected' : 'nav-link nav-earth'
-          }
+          <div className={overlays.contacts ? 'nav-sel-bar' : ''}></div>
+        </div>
+        {/* <div
+          className={(!overlays.contacts && !overlays.chat) ? 'nav-link nav-earth-selected' : 'nav-link nav-earth'}
+          onClick={() => setOverlays(() => ({ chat: false, contacts: false }))}
         >
           <EarthIcon className='nav-icon' />
-        </NavLink>
+        </div> */}
         <NavLink
           end
           to="contacts"

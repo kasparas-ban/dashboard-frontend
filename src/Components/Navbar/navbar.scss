@@ -41,6 +41,15 @@ nav {
   border-radius: 5px;
   padding: 0 1rem;
 
+  .nav-sel-bar {
+    width: 50px;
+    height: 5px;
+    position: absolute;
+    background-color: var.$logo-color;
+    bottom: 2px;
+    border-radius: 2px;
+  }
+
   svg {
     width: 25px;
     height: 25px;
@@ -94,9 +103,10 @@ nav {
 
 .nav-selected {
   fill: var.$logo-color;
+  // border-bottom: solid green 2px; 
 
   &:hover {
-    background-color: white;
+    // background-color: white;
   }
 }
 

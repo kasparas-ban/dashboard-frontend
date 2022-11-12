@@ -6,23 +6,34 @@ import {
 import './App.css';
 import GlobeWindow from './Components/Globe/GlobeWindow';
 import ChatList from "./Pages/ChatList/ChatList";
-import Contacts from "./Pages/Contacts/Contacts";
 import Settings from "./Pages/Settings/Settings";
 import ErrorPage from "./Pages/NotFound";
 import Navbar from "./Components/Navbar/Navbar";
+import Main from "./Pages/Main/Main";
+import { AppContext, Overlays } from "./AppContext";
+import { useState } from "react";
+
+const defaultOverlays: Overlays = {
+  contacts: false,
+  chat: false,
+}
 
 function App() {
+  const [overlays, setOverlays] = useState(defaultOverlays);
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<GlobeWindow />} />
-        <Route path="/chat-list" element={<ChatList />} />
+    <AppContext.Provider value={{ overlays, setOverlays }}>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          {/* <Route path="/chat-list" element={<ChatList />} />
         <Route path="/contacts" element={<Contacts />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<>Page not found</>} />
-      </Routes>
-    </BrowserRouter>
+        <Route path="/settings" element={<Settings />} /> */}
+          <Route path="*" element={<>Page not found</>} />
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 
