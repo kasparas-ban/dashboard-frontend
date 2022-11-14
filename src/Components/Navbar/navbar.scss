@@ -3,7 +3,7 @@
 nav {
   position: absolute;
   z-index: 1;
-  width: 1200px;
+  width: 1000px;
   height: 55px;
   background-color: white;
   border-radius: 20px;
@@ -38,17 +38,17 @@ nav {
   align-items: center;
   height: 80%;
   margin: .2rem;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 0 1rem;
 
-  .nav-sel-bar {
-    width: 50px;
-    height: 5px;
-    position: absolute;
-    background-color: var.$logo-color;
-    bottom: 2px;
-    border-radius: 2px;
-  }
+  // .nav-sel-bar {
+  //   width: 50px;
+  //   height: 5px;
+  //   position: absolute;
+  //   background-color: var.$logo-color;
+  //   bottom: 2px;
+  //   border-radius: 2px;
+  // }
 
   svg {
     width: 25px;
@@ -58,6 +58,7 @@ nav {
   &:hover {
     cursor: pointer;
     background-color: var.$slate-200;
+    // background-color: var.$blue-400;
     border-radius: 10px;
   }
 }
@@ -102,11 +103,11 @@ nav {
 }
 
 .nav-selected {
-  fill: var.$logo-color;
-  // border-bottom: solid green 2px; 
+  fill: white;
+  background-color: var.$logo-color;
 
   &:hover {
-    // background-color: white;
+    background-color: var.$blue-600;
   }
 }
 

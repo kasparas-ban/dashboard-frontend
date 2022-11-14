@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { AnimatePresence } from "framer-motion";
 import { AppContext } from '../../AppContext';
 import Contacts from '../../Components/Contacts/Contacts';
 import GlobeWindow from '../../Components/Globe/GlobeWindow';
@@ -10,7 +11,11 @@ function Main() {
   return (
     <div className="main-container">
       <GlobeWindow />
-      {overlays.contacts && <Contacts />}
+      <AnimatePresence>
+        {overlays.contacts && (
+          <Contacts />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

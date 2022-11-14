@@ -1,7 +1,16 @@
+@use '../../variables' as var;
+
 .globe-iframe {
   position: absolute;
   margin: 0; 
   overflow: hidden; 
   height: 100%;
   width: 100%;
+
+  @include var.anim-move(left, 0.1s);
+}
+
+.iframe-to-right {
+  left: var.$slide-distance;
+  @include var.anim-move(right, 0.1s);
 }

@@ -10,15 +10,6 @@ import './navbar.scss';
 import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 
-function SearchBar() {
-  return (
-    <div className='nav-search'>
-      <SearchIcon className='search-icon' />
-      <input type="text" placeholder="Search the planet" />
-    </div>
-  );
-}
-
 function Navbar() {
   const { overlays, setOverlays } = useContext(AppContext);
 
@@ -38,13 +29,6 @@ function Navbar() {
         >
           <FeedIcon className='nav-icon' />
         </NavLink>
-        <div
-          className={overlays.contacts ? 'nav-link nav-selected' : 'nav-link'}
-          onClick={() => setOverlays(prev => ({ ...prev, contacts: !prev.contacts }))}
-        >
-          <ChatIcon className='nav-icon' />
-          <div className={overlays.contacts ? 'nav-sel-bar' : ''}></div>
-        </div>
         {/* <div
           className={(!overlays.contacts && !overlays.chat) ? 'nav-link nav-earth-selected' : 'nav-link nav-earth'}
           onClick={() => setOverlays(() => ({ chat: false, contacts: false }))}
@@ -58,8 +42,15 @@ function Navbar() {
             isActive ? 'nav-link nav-selected' : 'nav-link'
           }
         >
-          <PeopleIcon className='nav-icon' />
+          <ChatIcon className='nav-icon' />
         </NavLink>
+        <div
+          className={overlays.contacts ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={() => setOverlays(prev => ({ ...prev, contacts: !prev.contacts }))}
+        >
+          <PeopleIcon className='nav-icon' />
+          {/* <div className={overlays.contacts ? 'nav-sel-bar' : ''}></div> */}
+        </div>
         <NavLink
           end
           to="messages"
@@ -87,6 +78,15 @@ function Navbar() {
         </div>
       </div>
     </nav>
+  );
+}
+
+function SearchBar() {
+  return (
+    <div className='nav-search'>
+      <SearchIcon className='search-icon' />
+      <input type="text" placeholder="Search the planet" />
+    </div>
   );
 }
 

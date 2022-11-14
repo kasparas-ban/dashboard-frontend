@@ -54,3 +54,67 @@ $slate-800: #1E293B;
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
+
+// === Animations ===
+
+@mixin anim-slidein {
+  animation-duration: 0.05s;
+  animation-name: slidein;
+  animation-timing-function: linear;
+}
+
+@mixin anim-fadein {
+  animation-duration: 5s;
+  animation-name: fadein;
+  animation-timing-function: linear;
+}
+
+@keyframes slidein {
+  from {
+    left: -22vw;
+  }
+
+  to {
+    left: 0;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// === Globe slide ===
+
+$slide-distance: 40px;
+
+@mixin anim-move($direction, $duration) {
+  animation-duration: $duration;
+  animation-name: move-#{$direction};
+  animation-timing-function: ease-out;
+}
+
+@keyframes move-right {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: $slide-distance;
+  }
+}
+
+@keyframes move-left {
+  from {
+    left: $slide-distance;
+  }
+
+  to {
+    left: 0;
+  }
+}
