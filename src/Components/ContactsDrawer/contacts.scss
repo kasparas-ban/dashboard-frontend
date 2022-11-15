@@ -15,9 +15,11 @@ $nav-selected: var.$logo-color;
 
 .contacts-container {
   position: absolute;
-  height: 100%;
+  margin: 10rem 0 0 0.8rem;
+  height: calc(100vh - 10rem);
   width: 22rem;
-  padding: 10rem 0 0 0.8rem;
+  // padding: 10rem 0 0 0.8rem;
+  overflow:hidden;
 
   .contacts-title {
     padding-left: 0.4rem;
@@ -41,13 +43,43 @@ $nav-selected: var.$logo-color;
   }
 }
 
+// === Scrollbar ===
+
+ul::-webkit-scrollbar {
+	width: 4px;
+}
+
+ul::-webkit-scrollbar-thumb {
+	background-color: rgba(var.$slate-500, 0.4);
+  border-radius: 2px;
+  visibility: hidden;
+}
+
+ul:hover {
+  &::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }
+}
+
 // === User List ===
 
 ul {
   list-style-type: none;
-  margin: 0;
   padding: 0;
   margin: 1rem 0;
+  overflow-y: auto;
+  height: fit-content;
+  max-height: calc(100vh - 4rem - 10rem - 4rem);
+  direction: rtl;
+
+  // --bottom-mask-size: 10rem;
+  // -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--top-mask-size, 0), black calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
+  // mask-image: linear-gradient(to bottom, transparent 0, black var(--top-mask-size, 0), black calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
+}
+
+.list-end-hidden {
+  --bottom-mask-size: 10rem;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--top-mask-size, 0), black calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
 }
 
 li {
@@ -55,6 +87,8 @@ li {
   align-items: center;
   padding: 0.4rem 0.8rem 0.4rem 0.4rem;
   border-radius: 8px;
+  margin: 0 0.5rem;
+  direction:ltr;
 
   &:not(:last-child) {
     margin-bottom: 0.2rem;
@@ -99,5 +133,21 @@ li {
         fill: white;
       }
     }
+  }
+}
+
+// === User List End ===
+
+.list-end-icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  top: -60px;
+  position: relative;
+  fill: white;
+  display: flex;
+  margin: auto;
+
+  &:hover {
+    cursor: pointer;
   }
 }

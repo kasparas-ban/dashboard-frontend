@@ -1,0 +1,24 @@
+.chat-container {
+  width: 18rem;
+  height: 25rem;
+  background-color: aquamarine;
+  position: absolute;
+  bottom: 0;
+  left: 23vw;
+  border-radius: 20px 20px 0 0;
+}
+
+.chat-header {
+  background-color: blue;
+  height: 3rem;
+  border-radius: 20px 20px 0 0;
+}
+
+.chat-body {
+  background-color: brown;
+}
+
+.chat-footer {
+  background-color: chartreuse;
+  height: 3rem;
+}
