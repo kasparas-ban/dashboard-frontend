@@ -7,7 +7,8 @@ export interface IUser {
 }
 
 export interface ChatOverlay {
-  user: IUser
+  user: IUser,
+  minimized: boolean,
 }
 
 export interface Overlays {

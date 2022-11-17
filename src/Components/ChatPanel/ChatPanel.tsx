@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { AppContext, ChatOverlay } from '../../AppContext';
 import { dateToYMD, isSameDay, isToday } from '../../Helpers/dateUtils';
 import { ReactComponent as CloseIcon } from '../../Assets/Basic/x_icon.svg';
+import { ReactComponent as MinimizeIcon } from '../../Assets/Basic/minimize_icon.svg';
+import { ReactComponent as MaximizeIcon } from '../../Assets/Basic/chevron_down_icon.svg';
 import { ReactComponent as EmojiIcon } from '../../Assets/Chat/emoji_icon.svg';
 import { ReactComponent as PhotoIcon } from '../../Assets/Chat/photo_icon.svg';
 import { ReactComponent as SendIcon } from '../../Assets/Chat/send.svg';
@@ -20,8 +22,12 @@ const slideChat = {
     bottom: "0rem",
     transition: { type: "linear", duration: 0.08 }
   },
+  minimized: {
+    bottom: "-26.8rem",
+    transition: { type: "linear", duration: 0.08 }
+  },
   closed: {
-    bottom: "-22rem",
+    bottom: "-30rem",
     transition: { type: "linear", duration: 0.08 }
   }
 };
@@ -36,6 +42,32 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
         ...prev,
         chats: [
           ...prev.chats.filter((chat: ChatOverlay, idx: number) => idx !== props.index)
+        ]
+      }
+    ));
+
+  const handleMinimize = () =>
+    setOverlays(prev => (
+      {
+        ...prev,
+        chats: [
+          ...prev.chats.map((chat: ChatOverlay, idx: number) => {
+            if (idx === props.index) chat.minimized = true;
+            return chat;
+          })
+        ]
+      }
+    ));
+
+  const handleMaximize = () =>
+    setOverlays(prev => (
+      {
+        ...prev,
+        chats: [
+          ...prev.chats.map((chat: ChatOverlay, idx: number) => {
+            if (idx === props.index) chat.minimized = false;
+            return chat;
+          })
         ]
       }
     ));
@@ -95,14 +127,14 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
       mess: "I mean the compliment is already out there and I received it. You can't do nothin about that.",
       time: new Date('2022-11-17T09:50:00'),
     },
-  ];
+  ].reverse();
 
   return (
     <motion.div
       variants={slideChat}
-      initial="closed"
-      animate="open"
-      exit="closed"
+      initial='closed'
+      animate={props.chatInfo.minimized ? 'minimized' : 'open'}
+      exit='closed'
       className='chat-container'
       style={{ left: 23 + (21 * props.index) + 'rem' }}
       layout
@@ -110,7 +142,12 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
       <div className="chat-header">
         <div className='chat-header-pic'></div>
         <div className='chat-header-name'>{props.chatInfo.user?.name}</div>
-        <CloseIcon className='chat-close-icon' onClick={handleClose} />
+        {
+          props.chatInfo.minimized
+            ? (<MaximizeIcon className='chat-header-icon maximize-icon' onClick={handleMaximize} />)
+            : (<MinimizeIcon className='chat-header-icon minimize-icon' onClick={handleMinimize} />)
+        }
+        <CloseIcon className='chat-header-icon' onClick={handleClose} />
       </div>
       <div className="chat-body">
         <ChatMessages messages={messages} />
@@ -131,21 +168,21 @@ function ChatMessages(props: { messages: IMessage[] }) {
       {
         props.messages.map((msg, idx) => {
           const userAuthor = props.messages[idx].from === 1234567890;
-          const sideChange = props.messages[idx + 1]?.from !== msg.from;
-          const hideIcon = (props.messages[idx + 1]?.from === msg.from) || userAuthor;
+          const sideChange = props.messages[idx - 1]?.from !== msg.from;
+          const hideIcon = (props.messages[idx - 1]?.from === msg.from) || userAuthor;
 
-          const trCorner = userAuthor && props.messages[idx - 1]?.from === msg.from;
+          const trCorner = userAuthor && props.messages[idx + 1]?.from === msg.from;
           const brCorner = userAuthor && !sideChange;
 
-          const tlCorner = !userAuthor && props.messages[idx - 1]?.from === msg.from;
+          const tlCorner = !userAuthor && props.messages[idx + 1]?.from === msg.from;
           const blCorner = !userAuthor && !sideChange;
 
           // Time is shown in the following format
           // - if it's today, show time at 10 min intervals
           // - otherwise, show time for the whole day
           const showDate = isToday(msg.time)
-            ? (msg.time.getTime() - props.messages[idx - 1]?.time.getTime()) / 1000 / 60 > 10
-            : !isSameDay(msg.time, props.messages[idx - 1]?.time);
+            ? (msg.time.getTime() - props.messages[idx + 1]?.time.getTime()) / 1000 / 60 > 10
+            : !isSameDay(msg.time, props.messages[idx + 1]?.time);
 
           if (userAuthor) {
             return (

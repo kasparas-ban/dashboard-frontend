@@ -118,7 +118,7 @@ function UserList(props: { users: IUser[] }) {
 
     // Limit to 4 chat overlays
     const chatOverlays = overlays.chats.slice(0, 3);
-    chatOverlays.push({ user });
+    chatOverlays.push({ minimized: false, user });
 
     // Update overlays
     setOverlays(prev => ({

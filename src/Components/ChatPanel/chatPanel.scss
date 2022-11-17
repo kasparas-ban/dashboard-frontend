@@ -12,6 +12,10 @@
   filter: drop-shadow(0 10px 10px rgb(0 0 0 / 0.9));
 }
 
+.chat-minimized {
+  bottom: -10rem;
+}
+
 // === Chat header ===
 
 .chat-header {
@@ -36,7 +40,7 @@
     font-size: 1rem;
   }
 
-  .chat-close-icon {
+  .chat-header-icon {
     width: 1.6rem;
     height: 1.6rem;
     margin-right: 0.8rem;
@@ -47,6 +51,19 @@
       fill: var.$slate-900;
       cursor: pointer;
     }
+  }
+
+  .minimize-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: .4rem;
+  }
+
+  .maximize-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: .4rem;
+    transform: rotate(180deg);
   }
 }
 
@@ -108,8 +125,12 @@
 .chat-body {
   background-color: white;
   flex-grow: 1;
-  overflow: auto;
+  overflow-y: auto;
+  
+  display: flex;
   flex-direction: column-reverse;
+
+  border-bottom: 2px solid white; // This fixes that weird black line at the bottom
 
   .message-row {
     display: flex;
