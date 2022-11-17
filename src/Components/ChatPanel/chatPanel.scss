@@ -1,24 +1,166 @@
+@use '../../variables' as var;
+
 .chat-container {
-  width: 18rem;
-  height: 25rem;
-  background-color: aquamarine;
+  width: 20rem;
+  height: 30rem;
   position: absolute;
   bottom: 0;
-  left: 23vw;
+  left: 23rem;
   border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 10px 10px rgb(0 0 0 / 0.9));
 }
+
+// === Chat header ===
 
 .chat-header {
-  background-color: blue;
-  height: 3rem;
+  background-color: var.$gray-300;
+  flex: 0 0 3.2rem;
   border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+
+  .chat-header-pic {
+    width: 2rem;
+    height: 2rem;
+    background-color: var.$slate-500;
+    border-radius: 50%;
+    margin: 0 0.8rem;
+  }
+
+  .chat-header-name {
+    color: var.$slate-700;
+    font-weight: bold;
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+
+  .chat-close-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 0.8rem;
+    fill: var.$slate-700;
+    border-radius: 50%;
+
+    &:hover {
+      fill: var.$slate-900;
+      cursor: pointer;
+    }
+  }
 }
 
-.chat-body {
-  background-color: brown;
-}
+// === Chat Footer ===
 
 .chat-footer {
-  background-color: chartreuse;
-  height: 3rem;
+  background-color: white;
+  flex: 0 0 3.2rem;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: 0.6rem;
+    fill: var.$slate-500;
+
+    &:hover {
+      cursor: pointer;
+      fill: var.$slate-900;
+    }
+  }
+
+  input {
+    height: 80%;
+    margin-left: 0.6rem;
+    width: 100%;
+    border-radius: 16px;
+    border: none;
+    padding: 0 0.6rem;
+    font-size: 1rem;
+    background-color: var.$gray-300;
+
+    &::placeholder {
+      color: var.$gray-700;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .send-icon {
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
+    fill: var.$logo-color;
+    width: 3rem;
+    height: 2rem;
+    padding-top: 2px;
+
+    &:hover {
+      fill: var.$blue-600;
+    }
+  }
+}
+
+// === Chat Body ===
+
+.chat-body {
+  background-color: white;
+  flex-grow: 1;
+  overflow: auto;
+
+  .message-row {
+    display: flex;
+
+    .message-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+      background-color: var.$slate-500;
+      border-radius: 50%;
+      margin: auto 0.2rem 0.4rem 0.2rem;
+    }
+  
+    .message-body {
+      background-color: var.$logo-color;
+      color: white;
+      max-width: 60%;
+      padding: .4rem .5rem .4rem .6rem;
+      margin: .1rem .2rem .1rem 0;
+      border-radius: 15px;
+    }
+
+    .message-no-icon {
+      margin-left: calc(1.6rem + 0.4rem);
+    }
+
+    .tl-corner {
+      border-top-left-radius: 2px;
+    }
+
+    .bl-corner {
+      border-bottom-left-radius: 2px;
+    }
+
+    .tr-corner {
+      border-top-right-radius: 2px;
+    }
+
+    .br-corner {
+      border-bottom-right-radius: 2px;
+    }
+  }
+
+  .message-author {
+    justify-content: end;
+    
+    .message-body {
+      background-color: var.$slate-200;
+      color: var.$slate-800;
+    }
+  }
+
+  .row-mb {
+    margin-bottom: .5rem;
+  }
 }

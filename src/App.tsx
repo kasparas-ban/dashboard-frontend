@@ -15,7 +15,7 @@ import { useState } from "react";
 
 const defaultOverlays: Overlays = {
   contacts: false,
-  chat: false,
+  chats: [],
 }
 
 function App() {

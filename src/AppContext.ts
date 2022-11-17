@@ -1,12 +1,18 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
-export interface Overlays {
-  [key: string]: boolean
+export interface IUser {
+  pic: string | null,
+  name: string,
+  id: number,
 }
 
-const defaultOverlays = {
-  contacts: false,
-  chat: false,
+export interface ChatOverlay {
+  user: IUser
+}
+
+export interface Overlays {
+  chats: ChatOverlay[],
+  [key: string]: any
 }
 
 export const AppContext = createContext({

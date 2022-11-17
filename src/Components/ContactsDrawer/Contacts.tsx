@@ -1,16 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { AppContext } from '../../AppContext';
+import { AppContext, ChatOverlay, IUser } from '../../AppContext';
 import { motion } from "framer-motion";
-import { ReactComponent as CloseDrawerIcon } from '../../Assets/Contacts/close_icon1.svg';
+import { ReactComponent as CloseDrawerIcon } from '../../Assets/Basic/close_drawer_icon.svg';
 import { ReactComponent as LocationIcon } from '../../Assets/Chat/location_icon.svg';
-import { ReactComponent as ChevronDown } from '../../Assets/chevron_down_icon.svg';
+import { ReactComponent as ChevronDown } from '../../Assets/Basic/chevron_down_icon.svg';
 import './contacts.scss';
-
-interface IUser {
-  pic: string | null,
-  name: string,
-  id: number,
-}
 
 const slideDrawer = {
   open: {
@@ -96,7 +90,7 @@ function Contacts() {
 }
 
 function UserList(props: { users: IUser[] }) {
-  const { setOverlays } = useContext(AppContext);
+  const { overlays, setOverlays } = useContext(AppContext);
   const [listClass, setListClass] = useState('');
   const userListRef = useRef<HTMLUListElement>(null);
 
@@ -116,7 +110,22 @@ function UserList(props: { users: IUser[] }) {
       (userListRef.current.clientHeight !== userListRef.current.scrollHeight)) {
       setListClass('list-end-hidden');
     }
-  }, [userListRef])
+  }, [userListRef]);
+
+  const addChat = (user: IUser) => {
+    // Ignore if duplicate
+    if (overlays.chats.some((chat: any) => chat.user?.id === user.id)) return;
+
+    // Limit to 4 chat overlays
+    const chatOverlays = overlays.chats.slice(0, 3);
+    chatOverlays.push({ user });
+
+    // Update overlays
+    setOverlays(prev => ({
+      ...prev,
+      chats: chatOverlays,
+    }));
+  };
 
   return (
     <>
@@ -134,7 +143,7 @@ function UserList(props: { users: IUser[] }) {
             key={user.id}
             variants={userRow}
             whileTap={{ scale: 0.98, transition: { duration: 0.01 } }}
-            onClick={() => setOverlays(prev => ({ ...prev, chats: true }))}
+            onClick={() => addChat(user)}
           >
             <User user={user} />
           </motion.li>

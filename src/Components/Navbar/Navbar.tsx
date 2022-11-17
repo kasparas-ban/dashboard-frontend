@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as PeopleIcon } from '../../Assets/people_icon.svg';
+import { ReactComponent as PeopleIcon } from '../../Assets/Navbar/people_icon.svg';
 import { ReactComponent as ChatIcon } from '../../Assets/chat_icon.svg';
-import { ReactComponent as SettingsIcon } from '../../Assets/settings_icon.svg';
+import { ReactComponent as SettingsIcon } from '../../Assets/Navbar/settings_icon.svg';
 import { ReactComponent as SearchIcon } from '../../Assets/search_icon.svg';
-import { ReactComponent as FeedIcon } from '../../Assets/feed_icon.svg';
-import EarthIcon from '../../Assets/earth_icon';
+import { ReactComponent as FeedIcon } from '../../Assets/Navbar/feed_icon.svg';
+import EarthIcon from '../../Assets/Navbar/earth_icon';
 import profile from '../../Assets/profile_example.jpg';
 import './navbar.scss';
 import { useContext } from 'react';
