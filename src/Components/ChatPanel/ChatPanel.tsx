@@ -127,6 +127,24 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
       mess: "I mean the compliment is already out there and I received it. You can't do nothin about that.",
       time: new Date('2022-11-17T09:50:00'),
     },
+    {
+      messId: 10,
+      from: 1234567890,
+      mess: "Anyway, the compliment is mine. I took it.",
+      time: new Date('2022-11-18T09:50:00'),
+    },
+    {
+      messId: 11,
+      from: user.id,
+      mess: "You took it alright",
+      time: new Date('2022-11-18T10:20:00'),
+    },
+    {
+      messId: 12,
+      from: user.id,
+      mess: "I'm not gonna argue with that",
+      time: new Date('2022-11-18T10:32:00'),
+    },
   ].reverse();
 
   return (
@@ -163,31 +181,48 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
 }
 
 function ChatMessages(props: { messages: IMessage[] }) {
+  let showTimeOnly = false;
+
+  const isNextRowDate = (date: Date, prevDate: Date | undefined) =>
+    isToday(date) && prevDate
+      ? (date.getTime() - prevDate?.getTime()) / 1000 / 60 > 10
+      : !isSameDay(date, prevDate);
+
+  const shouldShowDate = (currMsg: IMessage, prevMsg: IMessage | undefined) =>
+    isToday(currMsg.time) && prevMsg
+      ? (currMsg.time.getTime() - prevMsg.time.getTime()) / 1000 / 60 > 10
+      : !isSameDay(currMsg.time, prevMsg?.time);
+
   return (
     <>
       {
         props.messages.map((msg, idx) => {
-          const userAuthor = props.messages[idx].from === 1234567890;
-          const sideChange = props.messages[idx - 1]?.from !== msg.from;
-          const hideIcon = (props.messages[idx - 1]?.from === msg.from) || userAuthor;
+          const nextMsg: IMessage | undefined = props.messages[idx - 1];
+          const prevMsg: IMessage | undefined = props.messages[idx + 1];
 
-          const trCorner = userAuthor && props.messages[idx + 1]?.from === msg.from;
-          const brCorner = userAuthor && !sideChange;
+          const isAuthor = msg.from === 1234567890;
+          const sideChange = nextMsg?.from !== msg.from;
+          const hideIcon = (nextMsg?.from === msg.from) || isAuthor;
 
-          const tlCorner = !userAuthor && props.messages[idx + 1]?.from === msg.from;
-          const blCorner = !userAuthor && !sideChange;
+          const nextDateRow = isNextRowDate(nextMsg?.time, msg?.time);
+
+          showTimeOnly = isToday(prevMsg?.time);
 
           // Time is shown in the following format
           // - if it's today, show time at 10 min intervals
           // - otherwise, show time for the whole day
-          const showDate = isToday(msg.time)
-            ? (msg.time.getTime() - props.messages[idx + 1]?.time.getTime()) / 1000 / 60 > 10
-            : !isSameDay(msg.time, props.messages[idx + 1]?.time);
+          const showDate = shouldShowDate(msg, prevMsg);
 
-          if (userAuthor) {
+          const trCorner = isAuthor && prevMsg?.from === msg.from && !showDate;
+          const brCorner = isAuthor && !sideChange && !nextDateRow;
+
+          const tlCorner = !isAuthor && prevMsg?.from === msg.from && !showDate;
+          const blCorner = !isAuthor && !sideChange && !nextDateRow;
+
+          if (isAuthor) {
             return (
               <div key={msg.messId}>
-                {showDate && <div className='chat-date'>{dateToYMD(msg.time)}</div>}
+                {showDate && <div className='chat-date'>{dateToYMD(msg.time, showTimeOnly)}</div>}
                 <div className={`message-row message-author ${sideChange ? 'row-mb' : ''}`}>
                   <div
                     className={`message-body message-no-icon ${trCorner ? 'tr-corner' : ''} ${brCorner ? 'br-corner' : ''}`}
@@ -201,11 +236,11 @@ function ChatMessages(props: { messages: IMessage[] }) {
 
           return (
             <div key={msg.messId}>
-              {showDate && <div className='chat-date'>{dateToYMD(msg.time)}</div>}
+              {showDate && <div className='chat-date'>{dateToYMD(msg.time, showTimeOnly)}</div>}
               <div className={`message-row ${sideChange ? 'row-mb' : ''}`}>
                 {!hideIcon && <div className='message-icon'></div>}
                 <div
-                  className={`message-body ${hideIcon ? 'message-no-icon bl-corner' : ''} ${tlCorner ? 'tl-corner' : ''} ${blCorner ? 'bl-corner' : ''}`}
+                  className={`message-body ${hideIcon ? 'message-no-icon' : ''} ${tlCorner ? 'tl-corner' : ''} ${blCorner ? 'bl-corner' : ''}`}
                 >
                   {msg.mess}
                 </div>

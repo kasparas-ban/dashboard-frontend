@@ -1,8 +1,8 @@
-const isToday = (someDate: Date) => {
+const isToday = (someDate: Date | undefined) => {
   const today = new Date()
-  return someDate.getDate() === today.getDate() &&
-    someDate.getMonth() === today.getMonth() &&
-    someDate.getFullYear() === today.getFullYear()
+  return someDate?.getDate() === today.getDate() &&
+    someDate?.getMonth() === today.getMonth() &&
+    someDate?.getFullYear() === today.getFullYear()
 }
 
 const isYesterday = (someDate: Date) => {
@@ -30,7 +30,7 @@ const getWeekday = (someDate: Date) => {
   return weekdays[someDate.getDay()];
 }
 
-function dateToYMD(date: Date) {
+function dateToYMD(date: Date, showTimeOnly: boolean) {
   const strArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const d = date.getDate();
   const m = strArray[date.getMonth()];
@@ -40,7 +40,7 @@ function dateToYMD(date: Date) {
   const mi = date.getMinutes();
 
   // Check if it's today
-  if (d === (new Date()).getDate()) return 'Today, ' + (h <= 9 ? '0' + h : h) + ':' + mi;
+  if (d === (new Date()).getDate()) return (showTimeOnly ? '' : 'Today, ') + (h <= 9 ? '0' + h : h) + ':' + mi;
 
   // Check if it's yesterday
   if (isYesterday(date)) return 'Yesterday, ' + (h <= 9 ? '0' + h : h) + ':' + mi;
