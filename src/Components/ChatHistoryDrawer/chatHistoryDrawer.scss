@@ -1,11 +1,5 @@
 @use '../../variables' as var;
 
-$drawer-size: 30rem;
-
-.ldrawer-background {
-  width: $drawer-size;
-}
-
 // === Chat Description ===
 
 .ch-user-pic {
@@ -13,7 +7,7 @@ $drawer-size: 30rem;
   height: 3rem;
   background-color: var.$slate-500;
   border-radius: 100%;
-  margin-right: 0.8rem;
+  margin: 0.4rem .8rem .4rem 0;
 }
 
 .ch-chat-summary {
@@ -39,9 +33,4 @@ $drawer-size: 30rem;
     color: var.$slate-200;
     margin-right: auto;
   }
-}
-
-.ld-li {
-  // background-color: aqua;
-  padding: 0.6rem 0.8rem 0.6rem 0.4rem;
 }

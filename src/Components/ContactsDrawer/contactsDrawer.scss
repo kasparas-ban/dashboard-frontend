@@ -1,0 +1,37 @@
+@use '../../variables' as var;
+
+.c-user-pic {
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: var.$slate-500;
+  border-radius: 100%;
+  margin-right: 0.8rem;
+}
+
+.c-user-name {
+  font-weight: bold;
+  color: var.$slate-100;
+}
+
+.c-user-options {
+  margin-left: auto;
+  visibility: hidden;
+
+  .c-user-icon:not(:last-child) {
+    margin-right: 0.6rem;
+  }
+
+  .c-user-icon {
+    width: 20px;
+    height: 20px;
+    fill: var.$slate-200;
+
+    &:hover {
+      fill: white;
+    }
+  }
+}
+
+.ld-li {
+  padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+}

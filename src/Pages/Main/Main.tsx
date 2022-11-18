@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AnimatePresence } from "framer-motion";
 import { AppContext, ChatOverlay } from '../../AppContext';
-import Contacts from '../../Components/ContactsDrawer/Contacts';
+import Contacts from '../../Components/ContactsDrawer/ContactsDrawer';
 import GlobeWindow from '../../Components/Globe/GlobeWindow';
 import './main.scss';
 import ChatPanel from '../../Components/ChatPanel/ChatPanel';
