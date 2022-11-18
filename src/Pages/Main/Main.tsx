@@ -5,6 +5,7 @@ import Contacts from '../../Components/ContactsDrawer/Contacts';
 import GlobeWindow from '../../Components/Globe/GlobeWindow';
 import './main.scss';
 import ChatPanel from '../../Components/ChatPanel/ChatPanel';
+import ChatHistoryDrawer from '../../Components/ChatHistoryDrawer/ChatHistoryDrawer';
 
 function Main() {
   const { overlays } = useContext(AppContext);
@@ -13,8 +14,11 @@ function Main() {
     <div className="main-container">
       <GlobeWindow />
       <AnimatePresence>
-        {overlays.contacts && (
+        {overlays.leftDrawer.contacts && (
           <Contacts key='contacts' />
+        )}
+        {overlays.leftDrawer.chatHistory && (
+          <ChatHistoryDrawer key='chatHistory' />
         )}
         {overlays.chats.map((chat: ChatOverlay, idx: number) =>
           <ChatPanel key={'chat-panel-' + chat.user.id} chatInfo={chat} index={idx} />

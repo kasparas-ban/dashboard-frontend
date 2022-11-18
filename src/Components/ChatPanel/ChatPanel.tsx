@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useContext, useRef, useState } from 'react';
-import { AppContext, ChatOverlay } from '../../AppContext';
+import { AppContext, ChatOverlay, IMessage } from '../../AppContext';
 import { dateToYMD, isSameDay, isToday } from '../../Helpers/dateUtils';
 import { ReactComponent as CloseIcon } from '../../Assets/Basic/x_icon.svg';
 import { ReactComponent as MinimizeIcon } from '../../Assets/Basic/minimize_icon.svg';
@@ -10,13 +10,6 @@ import { ReactComponent as EmojiIcon } from '../../Assets/Chat/emoji_icon.svg';
 import { ReactComponent as PhotoIcon } from '../../Assets/Chat/photo_icon.svg';
 import { ReactComponent as SendIcon } from '../../Assets/Chat/send.svg';
 import './chatPanel.scss';
-
-interface IMessage {
-  messId: number,
-  from: number,
-  mess: string,
-  time: Date,
-}
 
 const slideChat = {
   open: {
@@ -93,73 +86,73 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
     {
       messId: 1,
       from: user.id,
-      mess: 'Hi there!',
+      msg: 'Hi there!',
       time: new Date('2022-10-16T03:24:00'),
     },
     {
       messId: 2,
       from: user.id,
-      mess: 'How are ya?',
+      msg: 'How are ya?',
       time: new Date('2022-10-16T03:24:00'),
     },
     {
       messId: 3,
       from: 1234567890,
-      mess: "Hey! I'm fine, how are you?",
+      msg: "Hey! I'm fine, how are you?",
       time: new Date('2022-11-14T03:25:00'),
     },
     {
       messId: 4,
       from: user.id,
-      mess: "I'm fine too. Thanks for asking!",
+      msg: "I'm fine too. Thanks for asking!",
       time: new Date('2022-11-14T03:26:00'),
     },
     {
       messId: 5,
       from: 1234567890,
-      mess: "No problem. You asked me first.",
+      msg: "No problem. You asked me first.",
       time: new Date('2022-11-16T03:27:00'),
     },
     {
       messId: 6,
       from: user.id,
-      mess: "Oh yea, I just noticed it.",
+      msg: "Oh yea, I just noticed it.",
       time: new Date('2022-11-16T03:48:00'),
     },
     {
       messId: 7,
       from: user.id,
-      mess: "Nevermind then, I take back my compliment. It was silly for me to say it.",
+      msg: "Nevermind then, I take back my compliment. It was silly for me to say it.",
       time: new Date('2022-11-16T03:50:00'),
     },
     {
       messId: 8,
       from: 1234567890,
-      mess: "Well, it's a bit too late for that.",
+      msg: "Well, it's a bit too late for that.",
       time: new Date('2022-11-17T09:48:00'),
     },
     {
       messId: 9,
       from: 1234567890,
-      mess: "I mean the compliment is already out there and I received it. You can't do nothin about that.",
+      msg: "I mean the compliment is already out there and I received it. You can't do nothin about that.",
       time: new Date('2022-11-17T09:50:00'),
     },
     {
       messId: 10,
       from: 1234567890,
-      mess: "Anyway, the compliment is mine. I took it.",
+      msg: "Anyway, the compliment is mine. I took it.",
       time: new Date('2022-11-18T09:50:00'),
     },
     {
       messId: 11,
       from: user.id,
-      mess: "You took it alright",
+      msg: "You took it alright",
       time: new Date('2022-11-18T10:20:00'),
     },
     {
       messId: 12,
       from: user.id,
-      mess: "I'm not gonna argue with that",
+      msg: "I'm not gonna argue with that",
       time: new Date('2022-11-18T10:32:00'),
     },
   ].reverse();
@@ -253,7 +246,7 @@ function ChatMessages(props: { messages: IMessage[] }) {
                   <div
                     className={`message-body message-no-icon ${trCorner ? 'tr-corner' : ''} ${brCorner ? 'br-corner' : ''}`}
                   >
-                    {msg.mess}
+                    {msg.msg}
                   </div>
                 </div>
               </div>
@@ -268,7 +261,7 @@ function ChatMessages(props: { messages: IMessage[] }) {
                 <div
                   className={`message-body ${hideIcon ? 'message-no-icon' : ''} ${tlCorner ? 'tl-corner' : ''} ${blCorner ? 'bl-corner' : ''}`}
                 >
-                  {msg.mess}
+                  {msg.msg}
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { AppContext, ChatOverlay, IUser } from '../../AppContext';
+import { AppContext, IUser } from '../../AppContext';
 import { motion } from "framer-motion";
 import { ReactComponent as CloseDrawerIcon } from '../../Assets/Basic/close_drawer_icon.svg';
 import { ReactComponent as LocationIcon } from '../../Assets/Chat/location_icon.svg';
@@ -33,6 +33,15 @@ const userRow = {
 
 function Contacts() {
   const { setOverlays } = useContext(AppContext);
+
+  const handleDrawerClose = () =>
+    setOverlays(prev => ({
+      ...prev,
+      leftDrawer: {
+        contacts: false,
+        chatHistory: false,
+      }
+    }));
 
   const contactsList: IUser[] = [
     { pic: null, name: 'Jordyn Donin', id: 1 },
@@ -81,7 +90,7 @@ function Contacts() {
           className="contacts-title"
         >
           Contacts
-          <CloseDrawerIcon className='close-drawer-icon' onClick={() => setOverlays(prev => ({ ...prev, contacts: false }))} />
+          <CloseDrawerIcon className='close-drawer-icon' onClick={handleDrawerClose} />
         </motion.div>
         <UserList users={contactsList} />
       </div>
@@ -167,10 +176,10 @@ function UserList(props: { users: IUser[] }) {
 function User(props: { user: IUser }) {
   return (
     <>
-      <div className='user-pic'></div>
-      <div className='user-name'>{props.user.name}</div>
-      <div className='user-options'>
-        <LocationIcon className='user-icon' />
+      <div className='c-user-pic'></div>
+      <div className='c-user-name'>{props.user.name}</div>
+      <div className='c-user-options'>
+        <LocationIcon className='c-user-icon' />
       </div>
     </>
   );

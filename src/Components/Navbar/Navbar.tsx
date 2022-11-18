@@ -13,6 +13,24 @@ import { AppContext } from '../../AppContext';
 function Navbar() {
   const { overlays, setOverlays } = useContext(AppContext);
 
+  const toggleContactsDrawer = () =>
+    setOverlays(prev => ({
+      ...prev,
+      leftDrawer: {
+        contacts: !prev.leftDrawer.contacts,
+        chatHistory: false,
+      }
+    }));
+
+  const toggleChatHistoryDrawer = () =>
+    setOverlays(prev => ({
+      ...prev,
+      leftDrawer: {
+        contacts: false,
+        chatHistory: !prev.leftDrawer.chatHistory,
+      }
+    }));
+
   return (
     <nav>
       <div className='nav-left'>
@@ -35,21 +53,17 @@ function Navbar() {
         >
           <EarthIcon className='nav-icon' />
         </div> */}
-        <NavLink
-          end
-          to="contacts"
-          className={({ isActive }) =>
-            isActive ? 'nav-link nav-selected' : 'nav-link'
-          }
+        <div
+          className={overlays.leftDrawer.chatHistory ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={toggleChatHistoryDrawer}
         >
           <ChatIcon className='nav-icon' />
-        </NavLink>
+        </div>
         <div
-          className={overlays.contacts ? 'nav-link nav-selected' : 'nav-link'}
-          onClick={() => setOverlays(prev => ({ ...prev, contacts: !prev.contacts }))}
+          className={overlays.leftDrawer.contacts ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={toggleContactsDrawer}
         >
           <PeopleIcon className='nav-icon' />
-          {/* <div className={overlays.contacts ? 'nav-sel-bar' : ''}></div> */}
         </div>
         <NavLink
           end

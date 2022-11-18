@@ -1,3 +1,6 @@
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+
 const isToday = (someDate: Date | undefined) => {
   const today = new Date()
   return someDate?.getDate() === today.getDate() &&
@@ -26,14 +29,12 @@ const isLastWeek = (someDate: Date) => {
 }
 
 const getWeekday = (someDate: Date) => {
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
   return weekdays[someDate.getDay()];
 }
 
 function dateToYMD(date: Date, showTimeOnly: boolean) {
-  const strArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const d = date.getDate();
-  const m = strArray[date.getMonth()];
+  const m = months[date.getMonth()];
   const y = date.getFullYear();
 
   const h = date.getHours();
@@ -51,4 +52,21 @@ function dateToYMD(date: Date, showTimeOnly: boolean) {
   return '' + d + ' ' + m + ' ' + y + ', ' + (h <= 9 ? '0' + h : h) + ':' + mi;
 }
 
-export { isToday, isYesterday, isSameDay, isLastWeek, getWeekday, dateToYMD };
+function shortenedDateToYMD(date: Date) {
+  const d = date.getDate();
+  const m = months[date.getMonth()];
+  const y = date.getFullYear();
+
+  const h = date.getHours();
+  const mi = date.getMinutes();
+
+  // Check if it's today
+  if (d === (new Date()).getDate()) return (h <= 9 ? '0' + h : h) + ':' + mi;
+
+  // Check if it's this week
+  if (isLastWeek(date)) return getWeekday(date) + ', ' + (h <= 9 ? '0' + h : h) + ':' + mi;
+
+  return '' + d + ' ' + m + ' ' + y;
+}
+
+export { isToday, isYesterday, isSameDay, isLastWeek, getWeekday, dateToYMD, shortenedDateToYMD };

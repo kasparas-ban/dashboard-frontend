@@ -1,0 +1,47 @@
+@use '../../variables' as var;
+
+$drawer-size: 30rem;
+
+.ldrawer-background {
+  width: $drawer-size;
+}
+
+// === Chat Description ===
+
+.ch-user-pic {
+  width: 3rem;
+  height: 3rem;
+  background-color: var.$slate-500;
+  border-radius: 100%;
+  margin-right: 0.8rem;
+}
+
+.ch-chat-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .ch-top {
+    margin-right: auto;
+    margin-bottom: .3rem;
+
+    .ch-user-name {
+      font-weight: bold;
+      color: var.$slate-100;
+    }
+
+    .ch-date {
+      color: var.$slate-100;
+    }
+  }
+
+  .ch-last-msg {
+    color: var.$slate-200;
+    margin-right: auto;
+  }
+}
+
+.ld-li {
+  // background-color: aqua;
+  padding: 0.6rem 0.8rem 0.6rem 0.4rem;
+}

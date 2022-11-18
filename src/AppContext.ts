@@ -6,6 +6,14 @@ export interface IUser {
   id: number,
 }
 
+export interface IMessage {
+  messId: number,
+  from: number,
+  msg: string,
+  time: Date,
+}
+
+
 export interface ChatOverlay {
   user: IUser,
   minimized: boolean,
@@ -13,7 +21,10 @@ export interface ChatOverlay {
 
 export interface Overlays {
   chats: ChatOverlay[],
-  [key: string]: any
+  leftDrawer: {
+    contacts: boolean,
+    chatHistory: boolean,
+  }
 }
 
 export const AppContext = createContext({

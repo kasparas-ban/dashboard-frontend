@@ -14,7 +14,10 @@ import { AppContext, Overlays } from "./AppContext";
 import { useState } from "react";
 
 const defaultOverlays: Overlays = {
-  contacts: false,
+  leftDrawer: {
+    contacts: false,
+    chatHistory: false,
+  },
   chats: [],
 }
 
