@@ -132,6 +132,30 @@
 
   border-bottom: 2px solid white; // This fixes that weird black line at the bottom
 
+  .scroll-arrow {
+    width: 2.6rem;
+    height: 2.6rem;
+    position: absolute;
+    margin-left: calc((100% - 2.6rem - .25rem) / 2);
+    margin-bottom: 1rem;
+    fill: var.$logo-color;
+    border-radius: 50%;
+    background-color: var.$gray-300;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .message-row {
     display: flex;
 

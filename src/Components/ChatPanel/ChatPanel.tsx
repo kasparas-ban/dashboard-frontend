@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { AppContext, ChatOverlay } from '../../AppContext';
 import { dateToYMD, isSameDay, isToday } from '../../Helpers/dateUtils';
 import { ReactComponent as CloseIcon } from '../../Assets/Basic/x_icon.svg';
 import { ReactComponent as MinimizeIcon } from '../../Assets/Basic/minimize_icon.svg';
 import { ReactComponent as MaximizeIcon } from '../../Assets/Basic/chevron_down_icon.svg';
+import { ReactComponent as ArrowDown } from '../../Assets/Basic/arrow_down_icon.svg';
 import { ReactComponent as EmojiIcon } from '../../Assets/Chat/emoji_icon.svg';
 import { ReactComponent as PhotoIcon } from '../../Assets/Chat/photo_icon.svg';
 import { ReactComponent as SendIcon } from '../../Assets/Chat/send.svg';
@@ -34,6 +35,8 @@ const slideChat = {
 
 function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
   const { setOverlays } = useContext(AppContext);
+  const [showScroll, setShowScroll] = useState(false);
+  const chatRef = useRef<HTMLDivElement>(null);
   const user = props.chatInfo.user;
 
   const handleClose = () =>
@@ -71,6 +74,20 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
         ]
       }
     ));
+
+  const handleScroll = (e: any) => {
+    const hideEnd = Math.abs(e.target.scrollTop) < 10;
+    if (hideEnd) {
+      setShowScroll(() => false);
+    } else {
+      setShowScroll(() => true);
+    }
+  };
+
+  const scrollToBottom = () => chatRef.current?.scrollBy({
+    top: Math.abs(chatRef.current.scrollTop),
+    behavior: 'smooth'
+  })
 
   const messages: IMessage[] = [
     {
@@ -167,8 +184,17 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
         }
         <CloseIcon className='chat-header-icon' onClick={handleClose} />
       </div>
-      <div className="chat-body">
+      <div ref={chatRef} className="chat-body" onScroll={handleScroll}>
         <ChatMessages messages={messages} />
+        {showScroll && (
+          <motion.div
+            className='scroll-arrow'
+            whileTap={{ scale: 0.9, transition: { duration: 0.01 } }}
+            onClick={scrollToBottom}
+          >
+            <ArrowDown />
+          </motion.div>
+        )}
       </div>
       <div className="chat-footer">
         <PhotoIcon className='input-icon' />
