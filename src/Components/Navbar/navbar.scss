@@ -4,7 +4,7 @@ nav {
   position: absolute;
   z-index: 1;
   width: 1000px;
-  height: 55px;
+  height: 3.4rem;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
@@ -111,17 +111,16 @@ nav {
 }
 
 .profile-icon {
-  height: 48px;
-  width: 48px;
+  height: 2.6rem;
+  width: 2.6rem;
   border-radius: 100%;
   display: flex;
 
-  border: 3px solid var.$slate-100;
+  border: 2px solid var.$slate-100;
   box-sizing: border-box;
 
   &:hover {
     cursor: pointer;
-    border: none;
   }
 }
 
@@ -137,6 +136,10 @@ nav {
   font-weight: bold;
   padding: 0 0 0.3rem 1rem;
   margin-right: 0.6rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 // === Search input ===

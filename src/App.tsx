@@ -14,11 +14,12 @@ import { AppContext, Overlays } from "./AppContext";
 import { useState } from "react";
 
 const defaultOverlays: Overlays = {
+  chats: [],
+  navProfile: false,
   leftDrawer: {
     contacts: false,
     chatHistory: false,
   },
-  chats: [],
 }
 
 function App() {

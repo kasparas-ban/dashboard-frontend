@@ -9,6 +9,8 @@ import profile from '../../Assets/profile_example.jpg';
 import './navbar.scss';
 import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
+import { motion } from 'framer-motion';
+import NavProfile from '../NavProfile/NavProfile';
 
 function Navbar() {
   const { overlays, setOverlays } = useContext(AppContext);
@@ -31,10 +33,27 @@ function Navbar() {
       }
     }));
 
+  const toggleNavProfile = () =>
+    setOverlays(prev => ({
+      ...prev,
+      navProfile: !prev.navProfile,
+    }));
+
+  const handleClearOverlay = () =>
+    setOverlays(prev => ({
+      ...prev,
+      navProfile: false,
+      leftDrawer: {
+        contacts: false,
+        chatHistory: false,
+      },
+      chats: [],
+    }));
+
   return (
     <nav>
       <div className='nav-left'>
-        <div className='logo-icon'>b.</div>
+        <div className='logo-icon' onClick={handleClearOverlay}>b.</div>
         <SearchBar />
       </div>
       <div className='nav-center'>
@@ -86,9 +105,16 @@ function Navbar() {
           <SettingsIcon className='nav-icon' />
         </NavLink>
         <div className='nav-link smaller nav-profile'>
-          <div className='nav-icon'>
+          <motion.div
+            className='nav-icon'
+            whileTap={{ scale: 0.95, transition: { duration: 0.01 } }}
+            onClick={toggleNavProfile}
+          >
             <img src={profile} alt='Profile' className='profile-icon' />
-          </div>
+          </motion.div>
+          {overlays.navProfile && (
+            <NavProfile />
+          )}
         </div>
       </div>
     </nav>

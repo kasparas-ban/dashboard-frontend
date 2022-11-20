@@ -21,10 +21,11 @@ export interface ChatOverlay {
 
 export interface Overlays {
   chats: ChatOverlay[],
+  navProfile: boolean,
   leftDrawer: {
     contacts: boolean,
     chatHistory: boolean,
-  }
+  },
 }
 
 export const AppContext = createContext({
