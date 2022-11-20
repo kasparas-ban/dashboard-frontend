@@ -18,7 +18,7 @@ const slideDrawer = {
   }
 };
 
-const userRow = {
+const itemRow = {
   open: {
     opacity: 1,
     x: 0,
@@ -45,6 +45,7 @@ function LeftDrawer<Type>(
       leftDrawer: {
         contacts: false,
         chatHistory: false,
+        feed: false,
       }
     }));
 
@@ -116,7 +117,7 @@ function ItemList<Type>(
         {props.list.map(item =>
           <motion.li
             key={(item as any).id}
-            variants={userRow}
+            variants={itemRow}
             whileTap={{ scale: 0.98, transition: { duration: 0.01 } }}
             onClick={() => props.handleItemClick(item)}
             className={'ld-li'}

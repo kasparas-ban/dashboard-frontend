@@ -19,6 +19,7 @@ const defaultOverlays: Overlays = {
   leftDrawer: {
     contacts: false,
     chatHistory: false,
+    feed: false,
   },
 }
 

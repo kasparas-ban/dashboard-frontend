@@ -25,6 +25,7 @@ export interface Overlays {
   leftDrawer: {
     contacts: boolean,
     chatHistory: boolean,
+    feed: boolean,
   },
 }
 

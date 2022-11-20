@@ -21,6 +21,7 @@ function Navbar() {
       leftDrawer: {
         contacts: !prev.leftDrawer.contacts,
         chatHistory: false,
+        feed: false,
       }
     }));
 
@@ -30,6 +31,17 @@ function Navbar() {
       leftDrawer: {
         contacts: false,
         chatHistory: !prev.leftDrawer.chatHistory,
+        feed: false,
+      }
+    }));
+
+  const toggleFeedDrawer = () =>
+    setOverlays(prev => ({
+      ...prev,
+      leftDrawer: {
+        contacts: false,
+        chatHistory: false,
+        feed: !prev.leftDrawer.feed,
       }
     }));
 
@@ -46,6 +58,7 @@ function Navbar() {
       leftDrawer: {
         contacts: false,
         chatHistory: false,
+        feed: false,
       },
       chats: [],
     }));
@@ -57,15 +70,12 @@ function Navbar() {
         <SearchBar />
       </div>
       <div className='nav-center'>
-        <NavLink
-          end
-          to="feed"
-          className={({ isActive }) =>
-            isActive ? 'nav-link nav-selected' : 'nav-link'
-          }
+        <div
+          className={overlays.leftDrawer.feed ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={toggleFeedDrawer}
         >
           <FeedIcon className='nav-icon' />
-        </NavLink>
+        </div>
         {/* <div
           className={(!overlays.contacts && !overlays.chat) ? 'nav-link nav-earth-selected' : 'nav-link nav-earth'}
           onClick={() => setOverlays(() => ({ chat: false, contacts: false }))}

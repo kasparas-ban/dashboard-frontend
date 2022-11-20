@@ -3,9 +3,10 @@ import { AnimatePresence } from "framer-motion";
 import { AppContext, ChatOverlay } from '../../AppContext';
 import Contacts from '../../Components/ContactsDrawer/ContactsDrawer';
 import GlobeWindow from '../../Components/Globe/GlobeWindow';
-import './main.scss';
 import ChatPanel from '../../Components/ChatPanel/ChatPanel';
 import ChatHistoryDrawer from '../../Components/ChatHistoryDrawer/ChatHistoryDrawer';
+import FeedDrawer from '../../Components/FeedDrawer/FeedDrawer';
+import './main.scss';
 
 function Main() {
   const { overlays } = useContext(AppContext);
@@ -14,6 +15,9 @@ function Main() {
     <div className="main-container">
       <GlobeWindow />
       <AnimatePresence>
+        {overlays.leftDrawer.feed && (
+          <FeedDrawer key='feed' />
+        )}
         {overlays.leftDrawer.contacts && (
           <Contacts key='contacts' />
         )}
