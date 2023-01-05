@@ -6,6 +6,7 @@
   overflow: hidden; 
   height: 100%;
   width: 100%;
+  border-style: none;
 
   @include var.anim-move(left, 0.1s);
 }

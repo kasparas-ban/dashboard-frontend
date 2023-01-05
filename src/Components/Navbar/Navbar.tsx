@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useAppStore } from '../../appStore';
 import { ReactComponent as PeopleIcon } from '../../Assets/Navbar/people_icon.svg';
 import { ReactComponent as ChatIcon } from '../../Assets/chat_icon.svg';
 import { ReactComponent as SettingsIcon } from '../../Assets/Navbar/settings_icon.svg';
@@ -6,73 +8,26 @@ import { ReactComponent as SearchIcon } from '../../Assets/search_icon.svg';
 import { ReactComponent as FeedIcon } from '../../Assets/Navbar/feed_icon.svg';
 import EarthIcon from '../../Assets/Navbar/earth_icon';
 import profile from '../../Assets/profile_example.jpg';
-import './navbar.scss';
-import { useContext } from 'react';
-import { AppContext } from '../../AppContext';
-import { motion } from 'framer-motion';
 import NavProfile from '../NavProfile/NavProfile';
+import './navbar.scss';
 
 function Navbar() {
-  const { overlays, setOverlays } = useContext(AppContext);
-
-  const toggleContactsDrawer = () =>
-    setOverlays(prev => ({
-      ...prev,
-      leftDrawer: {
-        contacts: !prev.leftDrawer.contacts,
-        chatHistory: false,
-        feed: false,
-      }
-    }));
-
-  const toggleChatHistoryDrawer = () =>
-    setOverlays(prev => ({
-      ...prev,
-      leftDrawer: {
-        contacts: false,
-        chatHistory: !prev.leftDrawer.chatHistory,
-        feed: false,
-      }
-    }));
-
-  const toggleFeedDrawer = () =>
-    setOverlays(prev => ({
-      ...prev,
-      leftDrawer: {
-        contacts: false,
-        chatHistory: false,
-        feed: !prev.leftDrawer.feed,
-      }
-    }));
-
-  const toggleNavProfile = () =>
-    setOverlays(prev => ({
-      ...prev,
-      navProfile: !prev.navProfile,
-    }));
-
-  const handleClearOverlay = () =>
-    setOverlays(prev => ({
-      ...prev,
-      navProfile: false,
-      leftDrawer: {
-        contacts: false,
-        chatHistory: false,
-        feed: false,
-      },
-      chats: [],
-    }));
+  const leftDrawer = useAppStore(state => state.leftDrawer);
+  const navProfile = useAppStore(state => state.navProfile);
+  const toggleLeftDrawer = useAppStore(state => state.toggleLeftDrawer);
+  const toggleNavProfile = useAppStore(state => state.toggleNavProfile);
+  const clearOverlays = useAppStore(state => state.clearOverlays);
 
   return (
     <nav>
       <div className='nav-left'>
-        <div className='logo-icon' onClick={handleClearOverlay}>b.</div>
+        <div className='logo-icon' onClick={clearOverlays}>b.</div>
         <SearchBar />
       </div>
       <div className='nav-center'>
         <div
-          className={overlays.leftDrawer.feed ? 'nav-link nav-selected' : 'nav-link'}
-          onClick={toggleFeedDrawer}
+          className={leftDrawer.feed ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={() => toggleLeftDrawer('feed')}
         >
           <FeedIcon className='nav-icon' />
         </div>
@@ -83,14 +38,14 @@ function Navbar() {
           <EarthIcon className='nav-icon' />
         </div> */}
         <div
-          className={overlays.leftDrawer.chatHistory ? 'nav-link nav-selected' : 'nav-link'}
-          onClick={toggleChatHistoryDrawer}
+          className={leftDrawer.chatHistory ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={() => toggleLeftDrawer('chatHistory')}
         >
           <ChatIcon className='nav-icon' />
         </div>
         <div
-          className={overlays.leftDrawer.contacts ? 'nav-link nav-selected' : 'nav-link'}
-          onClick={toggleContactsDrawer}
+          className={leftDrawer.contacts ? 'nav-link nav-selected' : 'nav-link'}
+          onClick={() => toggleLeftDrawer('contacts')}
         >
           <PeopleIcon className='nav-icon' />
         </div>
@@ -122,7 +77,7 @@ function Navbar() {
           >
             <img src={profile} alt='Profile' className='profile-icon' />
           </motion.div>
-          {overlays.navProfile && (
+          {navProfile && (
             <NavProfile />
           )}
         </div>

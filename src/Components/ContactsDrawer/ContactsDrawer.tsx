@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { AppContext, ChatOverlay, IUser } from '../../AppContext';
+import { ChatOverlay, IUser, useAppStore } from '../../appStore';
 import { ReactComponent as LocationIcon } from '../../Assets/Chat/location_icon.svg';
-import './contactsDrawer.scss';
 import LeftDrawer from '../LeftDrawer/LeftDrawer';
+import './contactsDrawer.scss';
 
 const contactsList: IUser[] = [
   { pic: null, name: 'Jordyn Donin', id: 1 },
@@ -33,25 +32,25 @@ const contactsList: IUser[] = [
 ];
 
 function ContactsDrawer() {
-  const { overlays, setOverlays } = useContext(AppContext);
+  const openChats = useAppStore(state => state.chats);
+  const updateChats = useAppStore(state => state.updateChats);
 
   const handleItemClick = (item: IUser) => {
     // Ignore if duplicate
-    if (overlays.chats.some((chat: ChatOverlay) => chat.user?.id === item.id)) return;
+    if (openChats.some((chat: ChatOverlay) => chat.user?.id === item.id)) return;
 
     // Limit to 4 chat overlays
-    const chatOverlays = overlays.chats.slice(0, 3);
+    // TODO: This needs to be changed according to the screen size
+    const chatOverlays = openChats.slice(0, 3);
     chatOverlays.push({ minimized: false, user: item });
 
     // Update overlays
-    setOverlays(prev => ({
-      ...prev,
-      chats: chatOverlays,
-    }));
+    updateChats(chatOverlays);
   };
 
   return (
     <LeftDrawer
+      drawerType='contacts'
       drawerTitle={'Contacts'}
       itemList={contactsList}
       handleItemClick={handleItemClick}

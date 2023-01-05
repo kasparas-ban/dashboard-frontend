@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import { AnimatePresence } from "framer-motion";
-import { AppContext, ChatOverlay } from '../../AppContext';
+import { ChatOverlay, useAppStore } from "../../appStore";
 import Contacts from '../../Components/ContactsDrawer/ContactsDrawer';
 import GlobeWindow from '../../Components/Globe/GlobeWindow';
 import ChatPanel from '../../Components/ChatPanel/ChatPanel';
@@ -9,22 +8,23 @@ import FeedDrawer from '../../Components/FeedDrawer/FeedDrawer';
 import './main.scss';
 
 function Main() {
-  const { overlays } = useContext(AppContext);
+  const openChats = useAppStore(state => state.chats);
+  const leftDrawer = useAppStore(state => state.leftDrawer);
 
   return (
     <div className="main-container">
       <GlobeWindow />
       <AnimatePresence>
-        {overlays.leftDrawer.feed && (
+        {leftDrawer.feed && (
           <FeedDrawer key='feed' />
         )}
-        {overlays.leftDrawer.contacts && (
+        {leftDrawer.contacts && (
           <Contacts key='contacts' />
         )}
-        {overlays.leftDrawer.chatHistory && (
+        {leftDrawer.chatHistory && (
           <ChatHistoryDrawer key='chatHistory' />
         )}
-        {overlays.chats.map((chat: ChatOverlay, idx: number) =>
+        {openChats.map((chat: ChatOverlay, idx: number) =>
           <ChatPanel key={'chat-panel-' + chat.user.id} chatInfo={chat} index={idx} />
         )}
       </AnimatePresence>

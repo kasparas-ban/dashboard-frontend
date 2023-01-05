@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { AppContext, ChatOverlay, IMessage, IUser } from '../../AppContext';
+import { ChatOverlay, IMessage, IUser, useAppStore } from '../../appStore';
 import { shortenedDateToYMD } from '../../Helpers/dateUtils';
 import LeftDrawer from '../LeftDrawer/LeftDrawer';
 import './chatHistoryDrawer.scss';
@@ -90,26 +89,26 @@ const chatList: IChat[] = [
 ];
 
 function ChatHistoryDrawer() {
-  const { overlays, setOverlays } = useContext(AppContext);
+  const openChats = useAppStore(state => state.chats);
+  const updateChats = useAppStore(state => state.updateChats);
+
 
   const handleItemClick = (item: IChat) => {
     // Ignore if duplicate
-    if (overlays.chats.some((chat: ChatOverlay) => chat.user?.id === item.id)) return;
+    if (openChats.some((chat: ChatOverlay) => chat.user?.id === item.id)) return;
 
     // Limit to 4 chat overlays
-    const chatOverlays = overlays.chats.slice(0, 3);
+    const chatOverlays = openChats.slice(0, 3);
     chatOverlays.push({ minimized: false, user: item.user });
 
     // Update overlays
-    setOverlays(prev => ({
-      ...prev,
-      chats: chatOverlays,
-    }));
+    updateChats(chatOverlays);
   };
 
   return (
     <LeftDrawer
-      drawerTitle={'Chats'}
+      drawerType='chatHistory'
+      drawerTitle='Chats'
       itemList={chatList}
       handleItemClick={handleItemClick}
       content={(props: { item: IChat }) => <ChatItem item={props.item} />}

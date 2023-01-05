@@ -1,6 +1,6 @@
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useContext, useRef, useState } from 'react';
-import { AppContext, ChatOverlay, IMessage } from '../../AppContext';
+import { ChatOverlay, IMessage, useAppStore } from '../../appStore';
 import { dateToYMD, isSameDay, isToday } from '../../Helpers/dateUtils';
 import { ReactComponent as CloseIcon } from '../../Assets/Basic/x_icon.svg';
 import { ReactComponent as MinimizeIcon } from '../../Assets/Basic/minimize_icon.svg';
@@ -27,46 +27,30 @@ const slideChat = {
 };
 
 function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
-  const { setOverlays } = useContext(AppContext);
+  const openChats = useAppStore(state => state.chats);
+  const updateChats = useAppStore(state => state.updateChats);
   const [showScroll, setShowScroll] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
   const user = props.chatInfo.user;
 
+  console.log('chat index: ', props.index, openChats);
+
   const handleClose = () =>
-    setOverlays(prev => (
-      {
-        ...prev,
-        chats: [
-          ...prev.chats.filter((chat: ChatOverlay, idx: number) => idx !== props.index)
-        ]
-      }
-    ));
+    updateChats([...openChats.filter((_, idx: number) => idx !== props.index)]);
 
   const handleMinimize = () =>
-    setOverlays(prev => (
-      {
-        ...prev,
-        chats: [
-          ...prev.chats.map((chat: ChatOverlay, idx: number) => {
-            if (idx === props.index) chat.minimized = true;
-            return chat;
-          })
-        ]
-      }
-    ));
+    updateChats([...openChats.map((chat: ChatOverlay, idx: number) => {
+      if (idx === props.index) chat.minimized = true;
+      return chat;
+    })
+  ]);
 
   const handleMaximize = () =>
-    setOverlays(prev => (
-      {
-        ...prev,
-        chats: [
-          ...prev.chats.map((chat: ChatOverlay, idx: number) => {
-            if (idx === props.index) chat.minimized = false;
-            return chat;
-          })
-        ]
-      }
-    ));
+    updateChats([...openChats.map((chat: ChatOverlay, idx: number) => {
+      if (idx === props.index) chat.minimized = false;
+      return chat;
+    })
+  ]);
 
   const handleScroll = (e: any) => {
     const hideEnd = Math.abs(e.target.scrollTop) < 10;

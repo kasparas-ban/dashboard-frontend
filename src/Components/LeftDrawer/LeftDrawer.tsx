@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { AppContext } from "../../AppContext";
+import { LeftDrawerType, useAppStore } from "../../appStore";
 import { ReactComponent as CloseDrawerIcon } from '../../Assets/Basic/close_drawer_icon.svg';
 import { ReactComponent as ChevronDown } from '../../Assets/Basic/chevron_down_icon.svg';
 import './leftDrawer.scss';
@@ -32,22 +32,14 @@ const itemRow = {
 
 function LeftDrawer<Type>(
   props: {
+    drawerType: LeftDrawerType,
     drawerTitle: string,
     itemList: Type[],
     handleItemClick: (item: Type) => void,
     content: (props: { item: Type }) => JSX.Element
   }) {
-  const { setOverlays } = useContext(AppContext);
-
-  const handleDrawerClose = () =>
-    setOverlays(prev => ({
-      ...prev,
-      leftDrawer: {
-        contacts: false,
-        chatHistory: false,
-        feed: false,
-      }
-    }));
+  const toggleLeftDrawer = useAppStore(state => state.toggleLeftDrawer);
+  const closeLeftDrawer = () => toggleLeftDrawer(props.drawerType);
 
   return (
     <>
@@ -68,7 +60,7 @@ function LeftDrawer<Type>(
           className="ldrawer-title"
         >
           {props.drawerTitle}
-          <CloseDrawerIcon className='close-drawer-icon' onClick={handleDrawerClose} />
+          <CloseDrawerIcon className='close-drawer-icon' onClick={closeLeftDrawer} />
         </motion.div>
         <ItemList list={props.itemList} handleItemClick={props.handleItemClick}>{props.content}</ItemList>
       </div>

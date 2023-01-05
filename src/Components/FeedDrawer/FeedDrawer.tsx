@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { AppContext, ChatOverlay, IUser } from '../../AppContext';
+import { IUser } from '../../appStore';
 import { ReactComponent as CommentsIcon } from '../../Assets/comments_icon.svg';
 import { ReactComponent as HeartIcon } from '../../Assets/heart_empty_icon.svg';
 import { dateToYMD } from '../../Helpers/dateUtils';
@@ -83,6 +82,7 @@ function FeedDrawer() {
 
   return (
     <LeftDrawer
+      drawerType='feed'
       drawerTitle={'Posts'}
       itemList={feedList}
       handleItemClick={handleItemClick}
