@@ -1,5 +1,7 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { ChatOverlay, IUser, useAppStore } from '../../appStore';
 import { ReactComponent as LocationIcon } from '../../Assets/Chat/location_icon.svg';
+import { useContacts } from '../../Queries/queries';
 import LeftDrawer from '../LeftDrawer/LeftDrawer';
 import './contactsDrawer.scss';
 
@@ -32,6 +34,8 @@ const contactsList: IUser[] = [
 ];
 
 function ContactsDrawer() {
+  const queryClient = useQueryClient();
+  const { status, data, error, isFetching } = useContacts();
   const openChats = useAppStore(state => state.chats);
   const updateChats = useAppStore(state => state.updateChats);
 
@@ -47,6 +51,9 @@ function ContactsDrawer() {
     // Update overlays
     updateChats(chatOverlays);
   };
+
+  // console.log('Inside contacts: ', status, data, isFetching);
+  console.log('contacts')
 
   return (
     <LeftDrawer

@@ -6,10 +6,16 @@ import ChatPanel from '../../Components/ChatPanel/ChatPanel';
 import ChatHistoryDrawer from '../../Components/ChatHistoryDrawer/ChatHistoryDrawer';
 import FeedDrawer from '../../Components/FeedDrawer/FeedDrawer';
 import './main.scss';
+import { useQueryClient } from "@tanstack/react-query";
+import { useProfileInfo } from "../../Queries/queries";
 
 function Main() {
+  const queryClient = useQueryClient();
+  const { status, data, error, isFetching } = useProfileInfo();
   const openChats = useAppStore(state => state.chats);
   const leftDrawer = useAppStore(state => state.leftDrawer);
+
+  console.log('main');
 
   return (
     <div className="main-container">

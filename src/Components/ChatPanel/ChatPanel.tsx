@@ -64,7 +64,7 @@ function ChatPanel(props: { chatInfo: ChatOverlay, index: number }) {
   const scrollToBottom = () => chatRef.current?.scrollBy({
     top: Math.abs(chatRef.current.scrollTop),
     behavior: 'smooth'
-  })
+  });
 
   const messages: IMessage[] = [
     {
