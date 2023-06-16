@@ -2,6 +2,14 @@
 
 Frontend interface for the bluedot social network. Shows an interactive globe (implemented with [iTowns](https://github.com/iTowns/itowns)) and various panels to display social media related content.
 
+<p align="center">
+  <img alt="Light" src="./images/screenshot_1.png" width="30%">
+  &nbsp;
+  <img alt="Light" src="./images/screenshot_2.png" width="30%">
+  &nbsp;
+  <img alt="Light" src="./images/screenshot_3.png" width="30%">
+</p>
+
 ## Things to implement
 
 - [x] Add an interactive globe from iTowns
