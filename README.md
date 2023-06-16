@@ -17,10 +17,6 @@ Frontend interface for the bluedot social network. Shows an interactive globe (i
 - [ ] Make the number of shown chat panels to be responsive to the screen size
 - [ ] Add React Query
 
-The interactive globe was implemented using [iTowns](https://github.com/iTowns/itowns) library.
-
-The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Run the project
 
 To run the project enter: `npm start`
